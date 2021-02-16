@@ -2938,6 +2938,23 @@ int main(int argc, char **argv)
 							handle_command(cmd);
 						}
 					}
+					case 3: {
+						// another 36-bit format that Bruce Baumgart uses
+						total_commands = bytes / 8;
+						current_command = 0;
+						for (i = 0; i < bytes; i += 8)
+						{
+							int cmd;
+							int b1, b2, b3, b4, b5;
+							b1 = command[i + 3];
+							b2 = command[i + 4];
+							b3 = command[i + 5];
+							b4 = command[i + 6];
+							b5 = command[i + 7];
+							cmd = (b1 << 28) | (b2 << 24) | (b3 << 16) | (b4 << 8) | b5; 
+							handle_command(cmd);
+						}
+					}
 				}
 			}
 			
